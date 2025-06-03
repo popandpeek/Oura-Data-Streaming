@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   zookeeper:
@@ -118,7 +118,7 @@ services:
       - AIRFLOW_WEBSERVER_SECRET_KEY=this_is_a_very_secured_key
     logging:
       options:
-        max-size: 10m
+        max-size: 100m
         max-file: "3"
     volumes:
       - ./dags:/opt/airflow/dags
@@ -131,6 +131,7 @@ services:
       interval: 30s
       timeout: 300s
       retries: 3
+      start_period: 960s
     networks:
       - confluent
 
@@ -160,7 +161,7 @@ services:
       - POSTGRES_DB=airflow
     logging:
       options:
-        max-size: 10m
+        max-size: 100m
         max-file: "3"
     networks:
       - confluent
